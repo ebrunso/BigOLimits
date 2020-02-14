@@ -34,24 +34,32 @@ public class MainActivity extends AppCompatActivity {
         //The method MUST have a time complexity of less than O( n ) ;
         //m can be any int value (negative and positive)
 
-        PowerOf newPowerOf = new PowerOf();
+        PowerOfPow newPowerOf = new PowerOfPow();
         int intN = 5;
-        int intM = 7;
-        double dblResult = newPowerOf.powerOf(intN, intM);
+        int intM = -2;
+        int intPrintM = intM;
+        double dblResult = 0.0;
+        //double dblResult = newPowerOf.powerOfPow(intN, intM);   Used for preliminary testing
+        //System.out.println(intN + "^" + intPrintM + " is equal to: " + dblResult);
 
-        System.out.println(intN + "^" + intM + " is equal to: " + dblResult);
+        if (intM >= 0) {
+            dblResult = powerOfRecur(intN, intM);
+        }
+        if (intM < 0) {
+            intM = intM * -1;
+            dblResult = powerOfRecur(intN, intM);
+            dblResult = (1/dblResult);
+        }
+
+        System.out.println(intN + "^" + intPrintM + " is equal to: " + dblResult);
 
         //3. Write a program to remove duplicates from an array in Java without using the Java Collection API.
         RemoveDupes newRemove = new RemoveDupes();
         Integer[] arrayWDuplicates = new Integer[] {1, 2, 3, 3, 4, 4, 4, 5, 6, 6, 7, 7, 7};
 
         System.out.println(Arrays.toString(arrayWDuplicates));
-
         Integer[] arrayNoDupes = newRemove.removeDupes(arrayWDuplicates);
-
         System.out.println(Arrays.toString(arrayNoDupes));
-
-
     }
 
     class BinarySearch{
@@ -77,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class PowerOf {
-        double powerOf(int n, int m) {
+    class PowerOfPow {
+        double powerOfPow(int n, int m) {
             double dblResult = 0;
             double dblN = n;
             double dblM = m;
@@ -86,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
             dblResult = Math.pow(dblN, dblM);
 
             return dblResult;
+        }
+    }
+
+    public static double powerOfRecur(int n, int m) {
+        if (m != 0){
+            return (n * powerOfRecur(n, m - 1));
+        } else {
+            return 1;
         }
     }
 
@@ -103,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             newArray[j++] = intArray[intArray.length - 1];
-
             return newArray;
         }
     }
